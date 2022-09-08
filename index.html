@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">Share Money</div>
+    </header>
+
+    <section class="input-wrapper">
+        <div class="input-container">
+            <h3>name</h3>
+            <input class="name-input" id="name-input" type="text" placeholder="Barney" value="">
+        </div>
+        <div class="input-container">
+            <h3>spend</h3>
+            <input class="number-input" id="number-input" type="number" placeholder="100" value="">
+        </div>
+        <div class="input-container">
+            <h3>item</h3>
+            <input class="item-input" id="item-input" type="text" placeholder="dinner" value="">
+        </div>
+        <button id="add-btn" class="btn btn-info">ADD</button>
+    </section>
+
+    <section class="count-wrapper">
+        <div class="count-container">
+            <div class="count-list">
+                <h1>Spend List</h1>
+                <table class="list">
+                    <colgroup span="3" style="background-color: lightgray;"></colgroup>
+                    <tr>
+                        <th>name</th>
+                        <th>spend</th>
+                        <th>item</th>
+                    </tr>
+                    <!-- add spending -->
+                </table>
+            </div>
+            <div class="count-total">
+                <h1>Total Spending</h1>
+                <div class="count">
+                    <!-- update total count -->
+                </div>
+            </div>
+            <div class="count-personal-total">
+                <h1>Personal Spending</h1>
+                <div class="count-personal">
+                    <!-- update total count -->
+                    <p>Tina 100</p>
+                    <p>Barney 250</p>
+                    <p>Joe 300</p>
+                </div>
+            </div>
+    </section>
+
+    <section class="split-bill-wrapper">
+        <div class="split-list-container">
+            <h1>Split Bill List</h1>
+            <table class="split-list" id="count">
+                <!-- add information -->
+                <tr>
+                    <td>Tina</td>
+                    <td>pay <span>$100</span> to</td>
+                    <td>Barney</td>
+                </tr>
+            </table>
+    </section>
+
+    <footer>
+        <p>&copy;Share Money by Barney & Tina</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+    <script src="https://kit.fontawesome.com/c41f0280df.js" crossorigin="anonymous"></script>
+</body>
+
+
+</html>

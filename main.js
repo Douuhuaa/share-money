@@ -2,84 +2,172 @@ let nameInput = document.querySelector(".name-input");
 let spendInput = document.querySelector(".number-input");
 let itemInput = document.querySelector(".item-input");
 let addBtn = document.querySelector("#add-btn");
-let list = document.querySelector(".list");
-let count = document.querySelector(".count");
+let spendingList = document.querySelector("#spending-list");
+let totalSpending = document.querySelector(".total-spending");
+let personalSpending = document.querySelector(".personal-spending");
+let countBtn = document.querySelector("#count-btn");
+let splitBillList = document.querySelector(".split-bill-list");
+let eachPay = document.querySelector(".each-pay");
+let groupList = document.querySelector(".group-list");
 
-let countArray = [];
+let personalArray = [];
+let countBtnClickTimes = 0;
 let sum = 0;
-count.innerHTML = `<h2 class="price-number">${sum}</h2>`;
+let pay = 0;
+totalSpending.innerHTML = `<h2 class="price-number">${sum}</h2>`;
+eachPay.innerText = `${pay}`;
 
-function totalSpendingCounted(arr) {
+// Show Personal Spending List
+function showPersonalSpending(length) {
+    let personalSpendingString = "";
+    for (i = 0; i < length; i++) {
+        if (personalArray[i].spend > 0) {
+            personalSpendingString += `<p>${personalArray[i].name}${personalArray[i].spend}</p>`;
+        }
+    }
+    personalSpending.innerHTML = personalSpendingString;
+}
+
+// Show Total Spending
+function showTotalSpending(arr) {
     let sum = 0;
     for (var i = 0; i < arr.length; i++) {
-        sum += arr[i];
+        sum += arr[i].spend;
     }
-    console.log(sum);
-    count.innerHTML = `<h2 class="price-number">${sum}</h2>`;
+    totalSpending.innerHTML = `<h2 class="price-number">${sum}</h2>`;
+    showEachPay(sum);
 }
 
-function addCountArray(spend) {
-    countArray.push(spend);
-    totalSpendingCounted(countArray);
+// Push personal Spending
+function pushPersonalSpending() {
+    let nameInputValue = nameInput.value;
+    let spendInputValue = Number(spendInput.value);
+    let itemInputValue = itemInput.value;
+    let nameIndexOf = personalArray
+        .map(function (item, index) {
+            return item.name;
+        })
+        .indexOf(nameInputValue);
+    if (personalArray.length <= 0) {
+        personalArray.push({
+            name: nameInputValue,
+            spend: spendInputValue
+        });
+    } else if (personalArray.length > 0) {
+        if (nameIndexOf >= 0) {
+            personalArray[nameIndexOf].spend += spendInputValue;
+        } else {
+            personalArray.push({
+                name: nameInputValue,
+                spend: spendInputValue
+            });
+        }
+    }
+    showTotalSpending(personalArray);
+    showPersonalSpending(personalArray.length);
 }
 
-function totalSpendingDeleated(number) {
-    let spendDeleated = -Math.abs(number);
-    addCountArray(spendDeleated);
+// Show Person
+function showPerson(arr) {
+    let group = "";
+    for (i = 0; i < personalArray.length; i++) {
+        group += `<p class="member">${arr[i].name}</p>`;
+    }
+    groupList.innerHTML = group;
+    console.log(group);
 }
 
+// Show spend Info
+function showSpendInfo() {
+    //  show spend list
+    let nameInputValue = nameInput.value;
+    let spendInputValue = Number(spendInput.value);
+    let itemInputValue = itemInput.value;
+    if (nameInputValue.length > 0 && itemInputValue.length > 0) {
+        spendingList.innerHTML += ` <tr>
+            <td>${nameInputValue}</td>
+            <td>${spendInputValue}</td>
+            <td>${itemInputValue}</td>
+            <td><i class="delete fa fa-trash"></i></td>
+          </tr>`;
+        pushPersonalSpending();
+        inputValueCleared();
+    } else {
+        alert`ALERT! Please check out the row of "name" or "item" is totally correct.`;
+    }
+}
+
+// Input Value Cleared
 function inputValueCleared() {
     document.getElementById("name-input").value = "";
     document.getElementById("number-input").value = "";
     document.getElementById("item-input").value = "";
 }
 
-addBtn.addEventListener("click", function () {
-    let nameInputValue = nameInput.value;
-    let spendInputValue = Number(spendInput.value);
-    let itemInputValue = itemInput.value;
-    if (nameInputValue.length > 0 && itemInputValue.length > 0) {
-        list.innerHTML += ` <tr>
-            <td>${nameInputValue}</td>
-            <td>${spendInputValue}</td>
-            <td>${itemInputValue}</td>
-            <td><i class="delete fa fa-trash"></i></td>
-          </tr>`;
-        addCountArray(spendInputValue);
-        inputValueCleared();
+// Show Each Pay
+function showEachPay(amount) {
+    let pay = Math.floor(amount / personalArray.length);
+    eachPay.innerText = `${pay}`;
+}
+
+// Show Split Bill List
+function showSplitBillList() {
+    splitBillList.innerHTML += `
+        <tr>
+          <td>Tina</td>
+          <td>pay <span>$100</span> to</td>
+          <td>Barney</td>
+        </tr>
+        `;
+}
+
+// Event: Count Button Active Once
+countBtn.addEventListener("click", function () {
+    if (countBtnClickTimes < 1) {
+        showSplitBillList();
+        countBtnClickTimes++;
     } else {
-        alert`ALERT! Please check out the row of "name" or "item" is totally correct.`;
+        alert("You are all set!");
     }
 });
 
+// Event: Touch addBtn button
+addBtn.addEventListener("click", function () {
+    showSpendInfo();
+    showPerson(personalArray);
+});
+
+// Event: Keydown Enter
 document.addEventListener("keydown", function () {
-    let nameInputValue = nameInput.value;
-    let spendInputValue = Number(spendInput.value);
-    let itemInputValue = itemInput.value;
     if (event.key === "Enter") {
-        if (nameInputValue.length > 0 && itemInputValue.length > 0) {
-            list.innerHTML += ` <tr>
-            <td>${nameInputValue}</td>
-            <td>${spendInputValue}</td>
-            <td>${itemInputValue}</td>
-            <td><i class="delete fa fa-trash"></i></td>
-          </tr>`;
-            addCountArray(spendInputValue);
-            inputValueCleared();
-        } else {
-            alert`ALERT! Please check out the row of "name" or "item" is totally correct.`;
-        }
+        showSpendInfo();
+        showPerson(personalArray);
     }
 });
 
+// Event: Remove Spend List / Total Spending / Personal Spending
 document.addEventListener("click", function (event) {
     let target = event.target;
     if (target.classList.contains("delete")) {
         let parentElement = target.parentElement;
         let grandParentElement = parentElement.parentElement;
-        let spendElement = Number(parentElement.parentNode.children[1].innerText);
+        let nameRemoved = parentElement.parentNode.children[0].innerText;
+        let spendRemoved = Number(parentElement.parentNode.children[1].innerText);
         grandParentElement.remove();
-        totalSpendingDeleated(spendElement);
+        personalArray.forEach((object) => {
+            if (object.name === nameRemoved) {
+                object.spend -= spendRemoved;
+                if (object.spend <= 0) {
+                    let indexOf = personalArray.indexOf(object);
+                    personalArray.splice(indexOf, 1);
+                }
+                showPerson(personalArray);
+                showTotalSpending(personalArray);
+                showPersonalSpending(personalArray.length);
+            }
+        });
     }
 });
+
+// Event: Touch countBtn button
 

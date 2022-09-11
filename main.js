@@ -106,19 +106,8 @@ function inputValueCleared() {
 
 // Show Each Pay
 function showEachPay(amount) {
-    let pay = Math.floor(amount / personalArray.length);
+    let pay = Math.round(amount / personalArray.length);
     eachPay.innerText = `${pay}`;
-}
-
-// Show Split Bill List
-function showSplitBillList() {
-    splitBillList.innerHTML += `
-        <tr>
-          <td>Tina</td>
-          <td>pay <span>$100</span> to</td>
-          <td>Barney</td>
-        </tr>
-        `;
 }
 
 // Event: Count Button Active Once
@@ -170,4 +159,40 @@ document.addEventListener("click", function (event) {
 });
 
 // Event: Touch countBtn button
+countBtn.addEventListener("click", function () {
+    console.log(personalArray)
+    let result = ""
+    for (let i = 0; i < personalArray.length; i++) {
+        let isPay = false;
+        for (let j = 0; j < personalArray.length; j++) {
+            if (personalArray[j].name != personalArray[i].name) {
+                if (personalArray[i].spend / personalArray.length < personalArray[j].spend / personalArray.length) {
+                    isPay = true;
+                    result += `
+                    <tr>
+                      <td>${personalArray[i].name}</td>
+                      <td>pay <span>$${Math.round(personalArray[j].spend / personalArray.length) - Math.round(personalArray[i].spend / personalArray.length)}</span> to</td>
+                      <td>${personalArray[j].name} </td>
+                    </tr>
+                    `
+                }
+            }
+        }
+        if (isPay == false) {
+            result += `
+            <tr>
+              <td>${personalArray[i].name}</td>
+              <td>doesn't need to pay</td>
+            </tr>
+            `
+        }
+        result += `<tr class="line">
+                    <td></td>
+                    <td>- - - - - - - - </td>
+                    <td></td>
+                </tr>`
+        console.log(result)
+        splitBillList.innerHTML = result
+    }
+})
 

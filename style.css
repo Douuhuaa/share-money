@@ -44,8 +44,15 @@ p {
 input,
 button {
     height: 3rem;
-    font-size: 1.5rem;
     font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+input {
+    font-size: 1rem;
+}
+
+button {
+    font-size: 1.5rem;
 }
 
 table {
@@ -91,7 +98,7 @@ header {
 }
 
 .input-wrapper,
-.count-wrapper,
+.spending-wrapper,
 .split-bill-wrapper {
     position: relative;
     width: 90%;
@@ -103,7 +110,8 @@ header {
     border-bottom: 1px solid darkorchid;
 }
 
-.input-container {
+.input-container,
+.split-bill-list-container {
     display: flex;
     flex-direction: column;
     margin: 0.5rem;
@@ -118,30 +126,39 @@ input {
 }
 
 button {
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 2rem;
     background-color: lightgray;
+    border-radius: 2rem;
     color: darkorchid;
     padding: 0 0.5rem;
     font-weight: 600;
 }
 
-.count-container {
+#add-btn {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-25%);
+}
+
+#count-btn {
+    position: absolute;
+    right: 10%;
+    top: 5%;
+}
+
+.spending-container {
     width: 100%;
     display: flex;
     flex-direction: row;
     padding: 1rem;
 }
 
-.count-list {
+.spending-list {
     margin: 0 2rem 0 1rem;
 }
 
-.count-total,
-.count-personal-total {
+.spending-total,
+.spending-personal-total {
     flex: 1;
     border: 1px solid darkorchid;
     border-radius: 1rem;
@@ -154,7 +171,28 @@ button {
     font-size: 5rem;
 }
 
-.count-personal {
+.personal-spending {
     margin-top: 1rem;
     color: darkorchid;
+}
+
+.each-pay-container {
+    margin-top: 0.5rem;
+    color: darkorchid;
+    letter-spacing: 0.1rem;
+    font-weight: 600;
+}
+
+.group-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0.5rem 2rem;
+}
+
+.member {
+    margin: 0 0.5rem;
+    border: 1px solid darkorchid;
+    border-radius: 1rem;
+    padding: 1rem;
 }

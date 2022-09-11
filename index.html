@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/c41f0280df.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -31,11 +32,11 @@
         <button id="add-btn" class="btn btn-info">ADD</button>
     </section>
 
-    <section class="count-wrapper">
-        <div class="count-container">
-            <div class="count-list">
+    <section class="spending-wrapper">
+        <div class="spending-container">
+            <div class="spending-list">
                 <h1>Spend List</h1>
-                <table class="list">
+                <table id="spending-list">
                     <colgroup span="3" style="background-color: lightgray;"></colgroup>
                     <tr>
                         <th>name</th>
@@ -45,33 +46,30 @@
                     <!-- add spending -->
                 </table>
             </div>
-            <div class="count-total">
+            <div class="spending-total">
                 <h1>Total Spending</h1>
-                <div class="count">
+                <div class="total-spending">
                     <!-- update total count -->
                 </div>
             </div>
-            <div class="count-personal-total">
+            <div class="spending-personal-total">
                 <h1>Personal Spending</h1>
-                <div class="count-personal">
+                <div class="personal-spending">
                     <!-- update total count -->
-                    <p>Tina 100</p>
-                    <p>Barney 250</p>
-                    <p>Joe 300</p>
                 </div>
             </div>
     </section>
 
     <section class="split-bill-wrapper">
-        <div class="split-list-container">
+        <div class="split-bill-list-container">
             <h1>Split Bill List</h1>
-            <table class="split-list" id="count">
+            <p class="each-pay-container">$<span class="each-pay"></span>/person</p>
+            <div class="group-list">
+                <!-- add person -->
+            </div>
+            <button id="count-btn" class="btn btn-info">COUNT</button>
+            <table class="split-bill-list" id="split-bill-list">
                 <!-- add information -->
-                <tr>
-                    <td>Tina</td>
-                    <td>pay <span>$100</span> to</td>
-                    <td>Barney</td>
-                </tr>
             </table>
     </section>
 
@@ -79,9 +77,9 @@
         <p>&copy;Share Money by Barney & Tina</p>
     </footer>
 
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./main.js"></script>
-    <script src="https://kit.fontawesome.com/c41f0280df.js" crossorigin="anonymous"></script>
+    <script src="/main.js"></script>
 </body>
 
 
